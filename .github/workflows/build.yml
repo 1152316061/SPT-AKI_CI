@@ -90,7 +90,7 @@ jobs:
       - name: Build Aki Server
         id: build_server
         shell: pwsh
-        run: ./build_server.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.sbranch }}
+        run: ./build_server.ps1 -Release -Overwrite -NoZip -Branch ${{ matrix.versions.sbranch }}
    
       - name: Build Aki Modules
         id: build_modules
