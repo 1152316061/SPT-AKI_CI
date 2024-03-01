@@ -1,3 +1,9 @@
+# 需要配合 [SPT-AKI_DLL](https://github.com/yhl452493373/SPT-AKI_DLL)使用，对actions的build.yaml进行了一些修改
++ `Build Windows Aki Packages` - `matrix` - `version` 中增加了dll文件下载地址`dll_url`，其值为`https://github.com/yhl452493373/SPT-AKI_DLL/raw/main/`，对应我的`SPT-AKI_DLL`仓库
++ `Build Aki Server`中的`run`后面，增加了`-Release`
++ `Build Aki Modules`中的`run`后面，将DLL的下载地址由`${{ secrets.DLL_URL }}`改成了`${{ matrix.versions.dll_url }}`
+
+
 # SPT-AKI_CI
 Scripts for building SPT-Aki Server, Launcher, Modules and also making an entire release package.
 
