@@ -90,14 +90,12 @@ jobs:
       - name: Build Aki Server
         id: build_server
         shell: pwsh
-        run: ./build_server.ps1 -Release -Overwrite -NoZip -Branch ${{ matrix.versions.sbranch }}
+        run: ./build_server.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.sbranch }}
    
       - name: Build Aki Modules
         id: build_modules
         shell: pwsh
-        env:
-          DLL_URL: https://raw.githubusercontent.com/yhl452493373/SPT-AKI_DLL/main/
-        run: ./build_modules.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.mbranch }} -Url ${DLL_URL} -TarkovVersion ${{ matrix.versions.version }}
+        run: ./build_modules.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.mbranch }} -Url ${{ secrets.DLL_URL }} -TarkovVersion ${{ matrix.versions.version }}
 
       - name: Build Aki Launcher
         id: build_launcher
