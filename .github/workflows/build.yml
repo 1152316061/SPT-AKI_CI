@@ -48,6 +48,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        dll_url: "https://github.com/yhl452493373/SPT-AKI_DLL/raw/main/"
         versions:
           [{
             sbranch: "3.8.0",
@@ -90,12 +91,12 @@ jobs:
       - name: Build Aki Server
         id: build_server
         shell: pwsh
-        run: ./build_server.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.sbranch }}
+        run: ./build_server.ps1 -Release -Overwrite -NoZip -Branch ${{ matrix.versions.sbranch }}
    
       - name: Build Aki Modules
         id: build_modules
         shell: pwsh
-        run: ./build_modules.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.mbranch }} -Url ${{ secrets.DLL_URL }} -TarkovVersion ${{ matrix.versions.version }}
+        run: ./build_modules.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.mbranch }} -Url ${{ matrix.dll_url }} -TarkovVersion ${{ matrix.versions.version }}
 
       - name: Build Aki Launcher
         id: build_launcher
