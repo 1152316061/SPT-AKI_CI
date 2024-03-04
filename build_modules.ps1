@@ -43,6 +43,8 @@ else
 {
     Write-Output "Branch not given, using default branch"
     git clone --depth 1 $SOURCE_REPO $SOURCE_DIR
+    # Allow load client mods
+    & ((Split-Path $MyInvocation.InvocationName) + "/modules_allow_client_mods.ps1") -SourceDir $SOURCE_DIR
 }
 
 Set-Location $SOURCE_DIR
