@@ -57,7 +57,7 @@ jobs:
         versions:
           [{
             sbranch: "3.8.0",
-            lbranch: "3.8.0",
+            lbranch: "net8",
             mbranch: "3.8.0",
             version: "0.14.1.1.28965",
             dll_url: "https://github.com/yhl452493373/SPT-AKI_DLL/raw/main/",
@@ -96,8 +96,9 @@ jobs:
       
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6
-
+          dotnet-version: |
+            6
+            8
 
       - name: Build Aki Server
         id: build_server
