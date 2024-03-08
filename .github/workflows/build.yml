@@ -39,7 +39,7 @@ jobs:
       - name: Build Aki Server
         id: build
         shell: pwsh
-        run: ./build_server.ps1 -Overwrite -Branch ${{matrix.m.branch}}
+        run: ./build_server.ps1 -Release -Overwrite -Branch ${{matrix.m.branch}}
 
       - uses: actions/upload-artifact@v4
         with:
