@@ -4,7 +4,7 @@ Param(
 )
 
 # 去除客户端Mod限制
-$FILE_PATH = "$SourceDir/project/Aki.Core/AkiCorePlugin.cs"
+$FILE_PATH = "$SourceDir/project/Aki.Debugging/AkiDebuggingPlugin.cs"
 $SEARCH_STRING = "new PreventClientModsPatch().Enable();"
 $REPLACE_STRING = "//new PreventClientModsPatch().Enable();"
 # 读取文件内容
