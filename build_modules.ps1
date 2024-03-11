@@ -46,7 +46,7 @@ else
 }
 
 # Modules code path
-& ((Split-Path $MyInvocation.InvocationName) + "/modules_code_patch.ps1") -SourceDir $SOURCE_DIR
+#& ((Split-Path $MyInvocation.InvocationName) + "/modules_code_patch.ps1") -SourceDir $SOURCE_DIR
 
 Set-Location $SOURCE_DIR
 
