@@ -39,7 +39,7 @@ jobs:
       - name: Build Aki Server
         id: build
         shell: pwsh
-        run: ./build_server.ps1 -Overwrite -Branch ${{matrix.m.branch}}
+        run: ./build_server.ps1 -Release -Overwrite -Branch ${{matrix.m.branch}}
 
       - uses: actions/upload-artifact@v4
         with:
@@ -101,7 +101,7 @@ jobs:
       - name: Build Aki Server
         id: build_server
         shell: pwsh
-        run: ./build_server.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.sbranch }}
+        run: ./build_server.ps1 -Release -Overwrite -NoZip -Branch ${{ matrix.versions.sbranch }}
    
       - name: Build Aki Modules
         id: build_modules
