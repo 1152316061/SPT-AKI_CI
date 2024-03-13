@@ -39,6 +39,9 @@ else {
     git clone --depth 1 $SOURCE_REPO $SERVER_DIR
 }
 
+# Server code path
+& ((Split-Path $MyInvocation.InvocationName) + "/server_code_patch.ps1") -SourceDir $SOURCE_DIR
+
 Set-Location $SERVER_DIR
 
 if ($Commit.Length -gt 0) {
