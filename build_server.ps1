@@ -40,7 +40,7 @@ else {
 }
 
 # Server code path
-& ((Split-Path $MyInvocation.InvocationName) + "/server_code_patch.ps1") -SourceDir $SOURCE_DIR
+& ((Split-Path $MyInvocation.InvocationName) + "/server_code_patch.ps1") -SourceDir $SERVER_DIR
 
 Set-Location $SERVER_DIR
 
