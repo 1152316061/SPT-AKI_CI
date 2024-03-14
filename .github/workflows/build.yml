@@ -18,8 +18,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # m: [{branch: 'master', node: 18},{branch: "3.8.0", node: 20}]
-        m: [{branch: "3.8.0", node: 20}]
+        versions:
+          [{
+            sbranch: "3.8.0",
+            node: 20
+          }]
     
     runs-on: windows-latest
     
