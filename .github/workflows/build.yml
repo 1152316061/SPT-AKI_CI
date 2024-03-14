@@ -14,32 +14,35 @@ on:
 
 jobs:
   job1:
-    name: Build Linux Aki Server
+    name: Build Aki Server SIT
     strategy:
       fail-fast: false
       matrix:
         # m: [{branch: 'master', node: 18},{branch: "3.8.0", node: 20}]
         m: [{branch: "3.8.0", node: 20}]
     
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     steps:
       - uses: actions/checkout@v4
 
       - name: Download Aki Server package-lock.json
         shell: pwsh
-        run: Invoke-WebRequest -Uri "https://dev.sp-tarkov.com/SPT-AKI/Server/raw/branch/${{matrix.m.branch}}/project/package-lock.json" -OutFile "./package-lock.json"
-      
+        run: Invoke-WebRequest -Uri "https://dev.sp-tarkov.com/SPT-AKI/Server/raw/branch/${{ matrix.versions.sbranch }}/project/package-lock.json" -OutFile "./package-lock.json"
       
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{matrix.m.node}}
+          node-version:  ${{ matrix.versions.node }}
           cache: 'npm'
+      
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6
 
       - name: Build Aki Server
         id: build
         shell: pwsh
-        run: ./build_server.ps1 -Release -Overwrite -Branch ${{matrix.m.branch}}
+        run: ./build_server.ps1 -SIT -Release -Overwrite -Branch ${{matrix.m.branch}}
 
       - uses: actions/upload-artifact@v4
         with:
