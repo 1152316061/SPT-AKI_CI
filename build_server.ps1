@@ -1,5 +1,8 @@
 Param(
     [Parameter(Mandatory = $false)]
+    [Switch] $SIT,
+    
+    [Parameter(Mandatory = $false)]
     [Switch] $Overwrite,
 
     [Parameter(Mandatory = $false)]
@@ -40,7 +43,12 @@ else {
 }
 
 # Server code path
-& ((Split-Path $MyInvocation.InvocationName) + "/server_code_patch.ps1") -SourceDir $SERVER_DIR
+if ($SIT) {
+    & ((Split-Path $MyInvocation.InvocationName) + "/server_code_patch.ps1") -SIT -SourceDir $SERVER_DIR
+}
+else {
+    & ((Split-Path $MyInvocation.InvocationName) + "/server_code_patch.ps1") -SourceDir $SERVER_DIR
+}
 
 Set-Location $SERVER_DIR
 
@@ -109,7 +117,12 @@ else{
     $Os = "linux"
 }
 
-$ZipName = "Aki-Server-$Os-$Suffix"
+if ($SIT) {
+    $ZipName = "Aki-Server-sit-$Os-$Suffix"
+}
+else{
+    $ZipName = "Aki-Server-$Os-$Suffix"
+}
 
 if (!$NoZip) {
     if ($IsWindows) {
