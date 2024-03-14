@@ -45,7 +45,7 @@ jobs:
       - name: Build Aki Server
         id: build
         shell: pwsh
-        run: ./build_server.ps1 -SIT -Release -Overwrite -NoZip -Branch ${{ matrix.versions.sbranch }}
+        run: ./build_server.ps1 -SIT -Release -Overwrite -Branch ${{ matrix.versions.sbranch }}
 
       - uses: actions/upload-artifact@v4
         with:
