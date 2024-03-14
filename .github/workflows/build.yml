@@ -53,7 +53,7 @@ jobs:
           path: './Server/project/build/*'
           if-no-files-found: error
           retention-days: 3
-          compression-level: 0
+          compression-level: 9
 
   job2:
     name: Build Windows Aki Packages
