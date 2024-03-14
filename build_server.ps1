@@ -110,30 +110,16 @@ else {
 
 $Suffix = "$Target-v$($akimeta.akiVersion)-$CInfo-Tarkov$($akimeta.compatibleTarkovVersion)"
 
-if ($IsWindows) {
-    $Os = "win"
-}
-else{
-    $Os = "linux"
-}
-
 if ($SIT) {
-    $ZipName = "Aki-Server-sit-$Os-$Suffix"
+    $ZipName = "Aki-Server-sit-$Suffix"
 }
 else{
-    $ZipName = "Aki-Server-$Os-$Suffix"
+    $ZipName = "Aki-Server-$Suffix"
 }
 
 if (!$NoZip) {
-    if ($IsWindows) {
-        $ZipName = "$ZipName.zip"
-        Compress-Archive -Path ./build/* -DestinationPath "../$ZipName" -Force
-    }
-    else {
-        $ZipName = "$ZipName.tar.gz"
-        Set-Location ./build
-        tar --overwrite -czv -f "../../$ZipName" ./*
-    }
+    $ZipName = "$ZipName.zip"
+    Compress-Archive -Path ./build/* -DestinationPath "../$ZipName" -Force
     Write-Output "Built file: $ZipName"
 }
 
