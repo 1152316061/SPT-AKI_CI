@@ -2,15 +2,15 @@ name: Build Aki Projects
 
 on:
   workflow_dispatch:
+  pull_request:
   # push:
   #   branches:
   #     - 'master'
   #   paths:
   #     - '**.ps1'
   #     - '**.yml'
-  # pull_request:
-  # schedule:
-  #   - cron: '0 0 * * *'
+  schedule:
+    - cron: '0 4 * * *'
 
 jobs:
   job1:
