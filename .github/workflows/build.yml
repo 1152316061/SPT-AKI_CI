@@ -10,7 +10,7 @@ on:
   #     - '**.ps1'
   #     - '**.yml'
   schedule:
-    - cron: '0 4 * * *'
+  #  - cron: '0 4 * * *'
 
 jobs:
   job1:
