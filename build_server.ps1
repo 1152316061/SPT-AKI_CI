@@ -22,6 +22,8 @@ $ErrorActionPreference = "Stop"
 $SOURCE_REPO = "https://dev.sp-tarkov.com/SPT-AKI/Server.git"
 $SERVER_DIR = "./Server"
 
+$BuildOnCommit = $Commit.Length -gt 0
+
 if (Test-Path -Path $SERVER_DIR) {
     if ($Overwrite -or (Read-Host "$SERVER_DIR exists, delete? [y/n]") -eq 'y') {
         Write-Output "$SERVER_DIR exists, removing"
@@ -42,7 +44,7 @@ else {
     git clone --depth 1 $SOURCE_REPO $SERVER_DIR
 }
 
-# Server code path
+# Server code patch
 if ($SIT) {
     & ((Split-Path $MyInvocation.InvocationName) + "/server_code_patch.ps1") -SIT -SourceDir $SERVER_DIR
 }
@@ -52,7 +54,7 @@ else {
 
 Set-Location $SERVER_DIR
 
-if ($Commit.Length -gt 0) {
+if ($BuildOnCommit) {
     Write-Output "Checking out the commit $Commit"
     git fetch --depth=1 $SOURCE_REPO $Commit
     git checkout $Commit
@@ -63,17 +65,10 @@ if ($Commit.Length -gt 0) {
 }
 
 $Head = git rev-parse --short HEAD
-$Branch = git rev-parse --abbrev-ref HEAD
 $CTime = git log -1 --format="%at"
 $CTimeS = (([System.DateTimeOffset]::FromUnixTimeSeconds($CTime)).DateTime).ToString("yyyyMMddHHmmss")
 
 Write-Output "Current HEAD is at $Head in $Branch committed at $CTimeS"
-
-$Tag = git describe --tags --abbrev=0 $Head
-$IsTag = $LASTEXITCODE -eq 0
-if ($IsTag) {
-    Write-Output "We also have a tag $Tag at HEAD"
-}
 
 Write-Output "lfs"
 git lfs fetch
@@ -87,6 +82,7 @@ else {
     $Target = "debug"
 }
 Set-Location ./project
+
 npm install
 npm run build:$Target *>&1
 
@@ -98,10 +94,7 @@ Get-ChildItem ./build
 $AkiMeta = (Get-Content ./build/Aki_Data/Server/configs/core.json | ConvertFrom-Json -AsHashtable)
 Write-Output $akiMeta
 
-if ($IsTag) {
-    $CInfo = "tag-$Tag"
-}
-elseif ($Branch.Equals("HEAD")) {
+if ($BuildOnCommit) {
     $CInfo = "$Head-$CTimeS"
 } 
 else {
@@ -118,8 +111,15 @@ else{
 }
 
 if (!$NoZip) {
-    $ZipName = "$ZipName.zip"
-    Compress-Archive -Path ./build/* -DestinationPath "../$ZipName" -Force
+    if ($IsWindows) {
+        $ZipName = "$ZipName.zip"
+        Compress-Archive -Path ./build/* -DestinationPath "../$ZipName" -Force
+    }
+    else {
+        $ZipName = "$ZipName.tar.gz"
+        Set-Location ./build
+        tar --overwrite -czv -f "../../$ZipName" ./*
+    }
     Write-Output "Built file: $ZipName"
 }
 
