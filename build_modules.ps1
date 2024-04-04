@@ -22,6 +22,8 @@ $ErrorActionPreference = "Stop"
 $SOURCE_DIR = "./Modules"
 $SOURCE_REPO = "https://dev.sp-tarkov.com/SPT-AKI/Modules.git"
 
+$BuildOnCommit = $Commit.Length -gt 0
+
 if (Test-Path -Path $SOURCE_DIR) {
     if ($Overwrite -or (Read-Host "$SOURCE_DIR exists, delete? [y/n]") -eq 'y') {
         Write-Output "$SOURCE_DIR exists, removing"
@@ -45,13 +47,13 @@ else
     git clone --depth 1 $SOURCE_REPO $SOURCE_DIR
 }
 
-# Modules code path
+# Modules code patch
 #& ((Split-Path $MyInvocation.InvocationName) + "/modules_code_patch.ps1") -SourceDir $SOURCE_DIR
 
 Set-Location $SOURCE_DIR
 
 
-if ($Commit.Length -gt 0) {
+if ($BuildOnCommit) {
     Write-Output "Checking out the commit $Commit"
     git fetch --depth=1 $SOURCE_REPO $Commit
     git checkout $Commit
@@ -62,7 +64,6 @@ if ($Commit.Length -gt 0) {
 }
 
 $Head = git rev-parse --short HEAD
-$Branch = git rev-parse --abbrev-ref HEAD
 $CTime = git log -1 --format="%at"
 $CTimeS = (([System.DateTimeOffset]::FromUnixTimeSeconds($CTime)).DateTime).ToString("yyyyMMddHHmmss")
 
@@ -82,7 +83,7 @@ if ($LASTEXITCODE -ne 0) {
     throw ("dotnet build failed, exit code $LASTEXITCODE")
 }
 
-if ($Branch.Equals("HEAD")) {
+if ($BuildOnCommit) {
     $CInfo = "$Head-$CTimeS"
 } 
 else {
