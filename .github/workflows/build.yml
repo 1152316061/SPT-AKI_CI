@@ -65,7 +65,7 @@ jobs:
             sbranch: "3.8.0",
             lbranch: "3.8.0",
             mbranch: "3.8.0",
-            version: "0.14.1.3.29351",
+            version: "0.14.1.2.29197",
             dll_url: "https://github.com/yhl452493373/SPT-AKI_DLL/raw/main/",
             node: 20
           }]
