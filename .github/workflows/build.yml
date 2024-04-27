@@ -25,7 +25,7 @@ jobs:
               node: 20
             },
             {
-              sbranch: "3.9.0-DEV", 
+              sbranch: "kiobu-fixes", 
               node: 20
               }
           ]
@@ -112,7 +112,7 @@ jobs:
       - name: Build Aki Modules
         id: build_modules
         shell: pwsh
-        run: ./build_modules.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.lbranch }} -Url ${{ matrix.versions.dll_url }} -TarkovVersion ${{ matrix.versions.version }}
+        run: ./build_modules.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.mbranch }} -Url ${{ matrix.versions.dll_url }} -TarkovVersion ${{ matrix.versions.version }}
 
       - name: Build Aki Launcher
         id: build_launcher
