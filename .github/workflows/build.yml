@@ -77,9 +77,9 @@ jobs:
               node: 20
             },
             {
-              sbranch: "3.9.0-DEV",
+              sbranch: "kiobu-fixes",
               lbranch: "3.9.0-DEV",
-              mbranch: "3.9.0-DEV",
+              mbranch: "kiobu-fixes",
               version: "0.14.6.0.29862",
               dll_url: "https://github.com/yhl452493373/SPT-AKI_DLL/raw/main/",
               node: 20
@@ -112,7 +112,7 @@ jobs:
       - name: Build Aki Modules
         id: build_modules
         shell: pwsh
-        run: ./build_modules.ps1 -Overwrite -NoZip -Branch kiobu-fixes -Url ${{ matrix.versions.dll_url }} -TarkovVersion ${{ matrix.versions.version }}
+        run: ./build_modules.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.lbranch }} -Url ${{ matrix.versions.dll_url }} -TarkovVersion ${{ matrix.versions.version }}
 
       - name: Build Aki Launcher
         id: build_launcher
