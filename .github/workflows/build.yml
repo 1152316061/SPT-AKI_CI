@@ -112,7 +112,7 @@ jobs:
       - name: Build Aki Modules
         id: build_modules
         shell: pwsh
-        run: ./build_modules.ps1 -Overwrite -NoZip -Branch ${{ matrix.versions.mbranch }} -Url ${{ matrix.versions.dll_url }} -TarkovVersion ${{ matrix.versions.version }}
+        run: ./build_modules.ps1 -Overwrite -NoZip -Branch kiobu-fixes -Url ${{ matrix.versions.dll_url }} -TarkovVersion ${{ matrix.versions.version }}
 
       - name: Build Aki Launcher
         id: build_launcher
