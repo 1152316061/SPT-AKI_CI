@@ -77,9 +77,9 @@ jobs:
               node: 20
             },
             {
-              sbranch: "kiobu-fixes",
+              sbranch: "3.9.0-DEV",
               lbranch: "3.9.0-DEV",
-              mbranch: "kiobu-fixes",
+              mbranch: "3.9.0-DEV",
               version: "0.14.6.0.29862",
               dll_url: "https://github.com/yhl452493373/SPT-AKI_DLL/raw/main/",
               node: 20
