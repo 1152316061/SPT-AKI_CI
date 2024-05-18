@@ -21,10 +21,6 @@ jobs:
         versions:
           [
             {
-              sbranch: "3.8.1-DEV",
-              node: 20
-            },
-            {
               sbranch: "3.9.0-DEV", 
               node: 20
               }
@@ -69,19 +65,11 @@ jobs:
         versions:
           [
             {
-              sbranch: "3.8.1-DEV",
-              lbranch: "3.8.1-DEV",
-              mbranch: "3.8.1-DEV",
-              version: "0.14.1.2.29197",
-              dll_url: "https://github.com/yhl452493373/SPT-AKI_DLL/raw/main/",
-              node: 20
-            },
-            {
               sbranch: "3.9.0-DEV",
               lbranch: "3.9.0-DEV",
               mbranch: "3.9.0-DEV",
-              version: "0.14.6.0.29862",
-              dll_url: "https://github.com/yhl452493373/SPT-AKI_DLL/raw/main/",
+              version: "0.14.8.0.29997",
+              dll_url: "https://github.com/1152316061/SPT-AKI_CI/raw/master/",
               node: 20
             }
           ]
